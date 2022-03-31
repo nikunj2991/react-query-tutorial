@@ -1,22 +1,34 @@
 import React from 'react';
-import { createStackNavigator, StackScreenProps } from '@react-navigation/stack';
-import { Post as PostType } from '../hooks/types';
-import { Posts } from '../screens/Posts/Posts';
-import { Post } from '../screens/Post/Post';
+import { View, Text, SafeAreaView } from 'react-native';
+import { createMaterialTopTabNavigator, MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs'
+import { Home, ClassicSuperHeroes } from '../screens';
 
-export type RootStackParamList = {
+export type TabParamList = {
     Home: undefined,
-    Post: { post: PostType }
+    ClassicSuperHeroes: undefined,
+    RQSuperheroes: undefined
 }
 
-export type HomeScreenNavigationProps = StackScreenProps<RootStackParamList, 'Home'>;
-export type PostScreenNavigationProps = StackScreenProps<RootStackParamList, 'Post'>;
+function SettingsScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Settings!</Text>
+    </View>
+  );
+}
 
-const MainStack = createStackNavigator<RootStackParamList>();
+export type HomeScreenNavigationProps = MaterialTopTabScreenProps<TabParamList, 'Home'>;
+export type ClassicSuperHeroesScreenNavigationProps = MaterialTopTabScreenProps<TabParamList, 'ClassicSuperHeroes'>;
+export type RQHeroesScreenNavigationProps = MaterialTopTabScreenProps<TabParamList, 'RQSuperheroes'>;
+
+const Tab = createMaterialTopTabNavigator();
 
 export const Main = () => (
-    <MainStack.Navigator>
-        <MainStack.Screen name="Home" component={Posts} />
-        <MainStack.Screen name="Post" component={Post} />
-    </MainStack.Navigator>
+    <SafeAreaView style={{flex: 1, marginTop: 24}}>
+        <Tab.Navigator>
+            <Tab.Screen name="Home" component={Home} />
+            <Tab.Screen name="Classic Superheroes" component={ClassicSuperHeroes} />
+            <Tab.Screen name="RQ Superheroes" component={SettingsScreen} />
+        </Tab.Navigator>
+    </SafeAreaView>
 );

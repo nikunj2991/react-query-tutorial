@@ -234,6 +234,7 @@ dependencies {
     }
 
     implementation 'androidx.multidex:multidex:2.0.1'
+    implementation project(':react-native-pager-view')
 }
 
 // Run this once to be able to run the application with BUCK
